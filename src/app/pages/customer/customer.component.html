@@ -1,0 +1,172 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header text-light bg-dark">
+          <div class="row">
+            <div class="col-md-8">
+              <h5>Customer list</h5>
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-primary btn-sm float-end" (click)="onAddCustomer()">Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <input type="text" class="form-control" name="customerName" [(ngModel)]="customerObj.customerName"
+                placeholder="Enter Customer Name">
+            </div>
+            <div class="col-md-4">
+              <input type="date" class="form-control" name="dob" [(ngModel)]="customerObj.dob">
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control" name="customerAddress" [(ngModel)]="customerObj.customerAddress"
+                placeholder="Enter Address">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <select class="form-select" name="state" [(ngModel)]="customerObj.state">
+                <option value="" disabled>Select State</option>
+                <option [value]="state.stateName" *ngFor="let state of stateArr">{{state.stateName}}</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select class="form-select" name="city" [(ngModel)]="customerObj.city">
+                <option value="" disabled>Select City</option>
+                <option [value]="city.cityName" *ngFor="let city of cityArr">{{city.cityName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-success btn-sm" (click)="onSearch()">Search</button>
+              <button class="btn btn-danger btn-sm ms-2" (click)="onSearchReset()">Reset</button>
+            </div>
+          </div>
+          <div class="table-responsive mt-3">
+            <table class="table table-bordered table-striped">
+              <thead class="table-success">
+                <tr>
+                  <th>Sr</th>
+                  <th>Customer Name</th>
+                  <th>Address</th>
+                  <th>State</th>
+                  <th>City</th>
+                  <th>DOB</th>
+                  <th>Profile Photo</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="filteredCustomerArr.length !== 0">
+                  <tr *ngFor="let customer of filteredCustomerArr; let sr=index">
+                    <td>{{sr+1}}</td>
+                    <td>{{customer.customerName}}</td>
+                    <td>{{customer.customerAddress}}</td>
+                    <td>{{customer.state}}</td>
+                    <td>{{customer.city}}</td>
+                    <td>{{customer.dob}}</td>
+                    <td>
+                      <img [src]="customer.photoUrl" height="30px" width="30px" alt="...">
+                    </td>
+                    <td style="white-space: nowrap;">
+                      <button class="btn btn-warning btn-sm me-2" (click)="onEdit(customer)">Edit</button>
+                      <button class="btn btn-danger btn-sm" (click)="onDelete(customer.customerId)">Delete</button>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="filteredCustomerArr.length == 0">
+                  <tr>
+                    <td colspan="9" class="text-center">No Record Found</td>
+                  </tr>
+                </ng-container>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- The Modal Starts here -->
+      <div class="modal" id="customerModal">
+        <div class="modal-dialog modal-lg modal-dialog-centered w-75">
+          <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header bg-dark">
+              <h5 class="modal-title text-light">Add Customer</h5>
+              <button class="btn btn-close btn-sm bg-danger" (click)="onCloseModal()"></button>
+            </div>
+            <form #customerFrm="ngForm">
+              <div class="modal-body">
+                <div class="row my-1">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="customerName" #customerName="ngModel" required
+                      [(ngModel)]="customerObj.customerName" placeholder="Enter Customer Name">
+                    <div class="text-danger" *ngIf="customerName.touched || customerName.dirty">
+                      <span *ngIf="customerName.errors?.['required']">This field is required</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="date" class="form-control" name="dob" #dob="ngModel" required
+                      [(ngModel)]="customerObj.dob">
+                    <div class="text-danger" *ngIf="dob.touched || dob.dirty">
+                      <span *ngIf="dob.errors?.['required']">This field is required</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-4">
+                    <select class="form-select" name="state" [(ngModel)]="customerObj.state" required #state="ngModel">
+                      <option value="" disabled>Select State</option>
+                      <option [value]="state.stateName" *ngFor="let state of stateArr">{{state.stateName}}</option>
+                    </select>
+                    <div class="text-danger" *ngIf="state.touched || state.dirty">
+                      <span *ngIf="state.errors?.['required']">This field is required</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select" name="city" [(ngModel)]="customerObj.city" required #city="ngModel">
+                      <option value="" disabled>Select City</option>
+                      <option [value]="city.cityName" *ngFor="let city of cityArr">{{city.cityName}}</option>
+                    </select>
+                    <div class="text-danger" *ngIf="city.touched || city.dirty">
+                      <span *ngIf="city.errors?.['required']">This field is required</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="file" (change)="onFileSelected($event)" class="form-control" name="photoUrl">
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <textarea class="form-control" name="customerAddress" required #customerAddress="ngModel"
+                      [(ngModel)]="customerObj.customerAddress" placeholder="Enter Address"></textarea>
+                    <div class="text-danger" *ngIf="customerAddress.touched || customerAddress.dirty">
+                      <span *ngIf="customerAddress.errors?.['required']">This field is required</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="row my-3">
+                  <div class="col-md-12">
+                    <div>
+                      <button class="btn btn-success btn-sm me-3" *ngIf="customerObj.customerId == 0" (click)="onSave()"
+                        [disabled]="customerFrm.invalid">Save</button>
+                      <button class="btn btn-warning btn-sm me-3" *ngIf="customerObj.customerId !== 0"
+                        (click)="onUpdate()">Update</button>
+                      <button class="btn btn-danger btn-sm me-3" (click)="onCancel()">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

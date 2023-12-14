@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "stateId": 1,
+      "stateName": "Maharashtra"
+    },
+    {
+      "stateId": 2,
+      "stateName": "Andhra Pradesh"
+    },
+    {
+      "stateId": 3,
+      "stateName": "Assam"
+    },
+    {
+      "stateId": 4,
+      "stateName": "Gujarat"
+    },
+    {
+      "stateId": 5,
+      "stateName": "Goa"
+    },
+    {
+      "stateId": 6,
+      "stateName": "Haryana"
+    }
+  ]
+}

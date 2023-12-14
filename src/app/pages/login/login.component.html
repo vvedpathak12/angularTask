@@ -1,0 +1,41 @@
+<div class="parent">
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form #loginFrm="ngForm">
+    <h3>Login Here</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <label>Username</label>
+        <input type="text" placeholder="Username" name="userName" #userName="ngModel" [(ngModel)]="loginObj.userName"
+          required>
+        <div class="text-danger" *ngIf="userName.touched || userName.dirty">
+          <span *ngIf="userName.errors?.['required']">Username required</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>Password</label>
+        <div class="password-input-container">
+          <input [type]="showPassword? 'text' :'password' " placeholder="Password" name="password" #password="ngModel"
+            [(ngModel)]="loginObj.password" required>
+          <i class="fa fa-eye password-eye" (click)="onEyeClick()" *ngIf="showPassword == true"></i>
+          <i class="fa fa-eye-slash password-eye" (click)="onEyeClick()" *ngIf="showPassword == false"></i>
+          <div class="text-danger" *ngIf="password.touched || password.dirty">
+            <span *ngIf="password.errors?.['required']">Password required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="text-dark fs-5" (click)="onLogIn(loginFrm)">
+      <ng-container *ngIf="!isLoggingIn; else loggingIn">
+        Log In
+      </ng-container>
+      <ng-template #loggingIn>
+        Logging In...
+      </ng-template>
+    </button>
+  </form>
+</div>

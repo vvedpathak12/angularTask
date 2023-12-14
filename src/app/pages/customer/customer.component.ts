@@ -22,7 +22,6 @@ export class CustomerComponent implements OnInit {
     "city": "",
   };
   selectedFile: File | null = null;
-  originalCustomerArr: any[] = []; // Add this variable
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 
@@ -71,7 +70,6 @@ export class CustomerComponent implements OnInit {
     this.http.get("assets/customerList.json").subscribe((res: any) => {
       this.customerArr = res.data;
       this.filteredCustomerArr = res.data;
-      // this.originalCustomerArr = res.data;
     });
   }
 
@@ -122,22 +120,8 @@ export class CustomerComponent implements OnInit {
     }
   }
 
-  // onSearch() {
-  //   if (this.customerObj.state) {
-  //     this.filteredCustomerArr = this.customerArr.filter(customer => customer.state === this.customerObj.state);
-  //   } else if (this.customerObj.city) {
-  //     this.filteredCustomerArr = this.customerArr.filter(customer => customer.city === this.customerObj.city);
-  //   } else if (this.customerObj.customerAddress) {
-  //     this.filteredCustomerArr = this.customerArr.filter(customer => customer.customerAddress.toLowerCase().includes(this.customerObj.customerAddress.toLowerCase()));
-  //   } else if (this.customerObj.dob) {
-  //     this.filteredCustomerArr = this.customerArr.filter(customer => customer.dob === this.customerObj.dob);
-  //   } else if (this.customerObj.customerName) {
-  //     this.filteredCustomerArr = this.customerArr.filter(customer => customer.customerName.toLowerCase().includes(this.customerObj.customerName.toLowerCase()));
-  //   }
-  // }
-
   onSearch() {
-    this.filteredCustomerArr = this.customerArr; // Reset filtered array to the original data
+    this.filteredCustomerArr = this.customerArr;
 
     if (this.customerObj.state) {
       this.filteredCustomerArr = this.filteredCustomerArr.filter(customer => customer.state === this.customerObj.state);
@@ -151,7 +135,11 @@ export class CustomerComponent implements OnInit {
       );
     }
     if (this.customerObj.dob) {
-      // Ensure the comparison is done correctly, consider using a similar date comparison logic as shown earlier
+      this.filteredCustomerArr = this.filteredCustomerArr.filter(customer => {
+        const searchDate = new Date(this.customerObj.dob).toLocaleDateString();
+        const customerDate = new Date(customer.dob).toLocaleDateString();
+        return customerDate === searchDate;
+      });
     }
     if (this.customerObj.customerName) {
       this.filteredCustomerArr = this.filteredCustomerArr.filter(customer =>
@@ -162,7 +150,7 @@ export class CustomerComponent implements OnInit {
 
   onSearchReset() {
     this.customerObj.customerName = "";
-    this.customerObj.dob = new Date();
+    this.customerObj.dob = null;
     this.customerObj.customerAddress = "";
     this.customerObj.state = "";
     this.customerObj.city = "";

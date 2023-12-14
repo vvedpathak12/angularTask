@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "customerId": 1,
+      "customerName": "Raj",
+      "dob": "20-10-2005",
+      "customerAddress": "MG Road",
+      "photoUrl": "https://static.toiimg.com/photo/101517951.cms",
+      "cityId": 2,
+      "state": "Maharashtra",
+      "stateId": 1,
+      "city": "Nagpur"
+    },
+    {
+      "customerId": 2,
+      "customerName": "Adi",
+      "dob": "12-12-2010",
+      "customerAddress": "hadapsar",
+      "photoUrl": "https://images.hindustantimes.com/img/2022/04/24/1600x900/tendulkar_mi_ipl_1650777563845_1650777571761.webp",
+      "cityId": 3,
+      "stateId": 1,
+      "state": "Maharashtra",
+      "city": "Pune"
+    },
+    {
+      "customerId": 3,
+      "customerName": "Virat",
+      "dob": "25-06-2008",
+      "customerAddress": "thane",
+      "photoUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Virat_Kohli_during_the_India_vs_Aus_4th_Test_match_at_Narendra_Modi_Stadium_on_09_March_2023.jpg",
+      "cityId": 1,
+      "stateId": 1,
+      "state": "Maharashtra",
+      "city": "Mumbai"
+    },
+    {
+      "customerId": 4,
+      "customerName": "Sachin",
+      "dob": "01-04-2003",
+      "customerAddress": "Near IT Park",
+      "photoUrl": "https://img.mensxp.com/media/content/2022/Apr/Sachin-Tendulkar1200_626542f8a2beb.jpeg",
+      "cityId": 5,
+      "stateId": 5,
+      "state": "Delhi",
+      "city": "Noida"
+    },
+    {
+      "customerId": 5,
+      "customerName": "Suresh",
+      "dob": "28-11-2004",
+      "customerAddress": "Near tilak udyan Park",
+      "photoUrl": "https://static.toiimg.com/thumb/msid-104245402,imgsize-39548,width-400,resizemode-4/104245402.jpg",
+      "cityId": 4,
+      "stateId": 4,
+      "state": "Maharashtra",
+      "city": "Kolhapur"
+    },
+    {
+      "customerId": 6,
+      "customerName": "Mahendra",
+      "dob": "28-11-2004",
+      "customerAddress": "Near IT Park",
+      "photoUrl": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcS_Q-fRFfDWAEfOcz_R0vktnglTXYO4EKn9z8bBlX6mgl4cobbtQ8K4KZFq46SSM4ArMq51ma5AZGxc62Y",
+      "cityId": 6,
+      "stateId": 6,
+      "state": "Maharashtra",
+      "city": "Satara"
+    }
+  ]
+}
